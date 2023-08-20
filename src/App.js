@@ -1,7 +1,10 @@
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 function App() {
   return (
-    <div className="App">
-      Shop
+    <div className="wrapper">
+      <Header />
+      <Footer />
     </div>
   );
 }
