@@ -3,8 +3,10 @@ import Footer from "./components/Footer";
 
 import React, { useState } from 'react'
 import Items from "./components/Items";
+import { logDOM } from "@testing-library/react";
 
 const App = () => {
+   const [orders, setOrders] = useState([])
    const [items, setItems] = useState([
       {
          id: 1,
@@ -55,10 +57,23 @@ const App = () => {
          price: '25.99'
       },
    ])
+
+   const addToOrder = (item) => {
+      let isInArr = false
+      orders.forEach(el => {
+         if (el.id === item.id) {
+            isInArr = true
+         }
+      })
+      if (!isInArr) {
+         setOrders([...orders, item])
+      }
+   }
+
    return (
       <div className="wrapper">
-         <Header />
-         <Items items={items}/>
+         <Header orders={orders} />
+         <Items items={items} onAdd={addToOrder} />
          <Footer />
       </div>
    )
