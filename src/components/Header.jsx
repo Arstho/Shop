@@ -2,13 +2,18 @@ import React, { useState } from 'react'
 import { FaShoppingCart } from "react-icons/fa"
 import Order from './Order'
 
-const Header = ({ orders }) => {
+const Header = ({ orders, onDelete }) => {
    const [cartOpen, setCartOpen] = useState(false)
 
    const showOders = () => {
-      return (<div>{orders.map(el => (
-         <Order key={el.id} item={el} />
-      ))}</div>)
+      let summa = 0
+      orders.forEach(el => summa += Number.parseFloat(el.price))
+      return (<div>
+         {orders.map(el => (
+            <Order key={el.id} item={el} onDelete={onDelete} />
+         ))}
+            <p className='summa'>Сумма: {new Intl.NumberFormat().format(summa)}$</p>
+      </div>)
    }
 
    const showNothing = () => {
