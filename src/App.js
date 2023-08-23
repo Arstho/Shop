@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import React, { useState } from 'react'
 import Items from "./components/Items";
 import { logDOM } from "@testing-library/react";
+import Categories from "./components/Categories";
 
 const App = () => {
    const [orders, setOrders] = useState([])
@@ -50,13 +51,14 @@ const App = () => {
       },
       {
          id: 6,
-         title: "Лампа",
+         title: "Свет",
          img: 'ligth.avif',
          desc: 'Lorem ipsum, dolor sit amet consectetur',
          catecory: 'ligth',
          price: '25.99'
       },
    ])
+   const [currentItems, setCurrentItems] = useState(items)
 
    const deleteOrder = (id) => {
       setOrders(orders.filter(el => el.id !== id))
@@ -74,10 +76,19 @@ const App = () => {
       }
    }
 
+   const chooseCategory = (catecory) => {
+      if (catecory === 'all') {
+         setCurrentItems(items)
+         return
+      }
+      setCurrentItems(items.filter(el => el.catecory === catecory))
+   }
+
    return (
       <div className="wrapper">
          <Header orders={orders} onDelete={deleteOrder} />
-         <Items items={items} onAdd={addToOrder} />
+         <Categories chooseCategory={chooseCategory} />
+         <Items items={currentItems} onAdd={addToOrder} />
          <Footer />
       </div>
    )
