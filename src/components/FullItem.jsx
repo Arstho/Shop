@@ -1,9 +1,10 @@
 import React from 'react'
 
-const Item = ({ item, onAdd, onShowItem }) => {
+const FullItem = ({ item, onAdd, onShowItem }) => {
+
    return (
-      <div className='item'>
-         <img src={'./img/' + item.img} alt="img" onClick={() => onShowItem(item)}/>
+      <div className='full-item'>
+         <img src={'./img/' + item.img} alt="img" onClick={() => onShowItem(item)} />
          <h2>{item.title}</h2>
          <p>{item.desc}</p>
          <b>{item.price}$</b>
@@ -12,4 +13,4 @@ const Item = ({ item, onAdd, onShowItem }) => {
    )
 }
 
-export default Item
+export default FullItem

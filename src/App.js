@@ -3,11 +3,13 @@ import Footer from "./components/Footer";
 
 import React, { useState } from 'react'
 import Items from "./components/Items";
-import { logDOM } from "@testing-library/react";
 import Categories from "./components/Categories";
+import FullItem from "./components/FullItem";
 
 const App = () => {
    const [orders, setOrders] = useState([])
+   const [showItem, setShowItem] = useState(false)
+   const [fullItem, setFullItem] = useState({})
    const [items, setItems] = useState([
       {
          id: 1,
@@ -84,11 +86,17 @@ const App = () => {
       setCurrentItems(items.filter(el => el.catecory === catecory))
    }
 
+   const onShowItem = (item) => {
+      setFullItem(item)
+      setShowItem(!showItem)
+   }
+
    return (
       <div className="wrapper">
          <Header orders={orders} onDelete={deleteOrder} />
          <Categories chooseCategory={chooseCategory} />
-         <Items items={currentItems} onAdd={addToOrder} />
+         <Items onShowItem={onShowItem} items={currentItems} onAdd={addToOrder} />
+         {showItem && <FullItem onAdd={addToOrder} onShowItem={onShowItem} item={fullItem}/>}
          <Footer />
       </div>
    )
