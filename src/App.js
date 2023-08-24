@@ -9,6 +9,7 @@ import FullItem from "./components/FullItem";
 const App = () => {
    const [orders, setOrders] = useState([])
    const [showItem, setShowItem] = useState(false)
+   const [fullItem, setFullItem] = useState({})
    const [items, setItems] = useState([
       {
          id: 1,
@@ -85,7 +86,8 @@ const App = () => {
       setCurrentItems(items.filter(el => el.catecory === catecory))
    }
 
-   const onShowItem = () => {
+   const onShowItem = (item) => {
+      setFullItem(item)
       setShowItem(!showItem)
    }
 
@@ -94,7 +96,7 @@ const App = () => {
          <Header orders={orders} onDelete={deleteOrder} />
          <Categories chooseCategory={chooseCategory} />
          <Items onShowItem={onShowItem} items={currentItems} onAdd={addToOrder} />
-         {showItem && <FullItem />}
+         {showItem && <FullItem item={fullItem} onShowItem={onShowItem} onAdd={addToOrder} />}
          <Footer />
       </div>
    )
